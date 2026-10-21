@@ -1,0 +1,2 @@
+MiniDSP synthetic training example.
+This file intentionally contains no personal identifiers.

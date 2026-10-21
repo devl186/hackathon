@@ -1,0 +1,2 @@
+# Keep fixture bytes exact on every platform (tests assert byte sizes and line endings).
+tests/fixtures/** -text

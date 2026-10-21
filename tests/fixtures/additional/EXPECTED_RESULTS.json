@@ -1,0 +1,182 @@
+[
+  {
+    "file": "01_clean_notes.txt",
+    "expected_file_risk": "None",
+    "bytes": 69,
+    "purpose": "clean text"
+  },
+  {
+    "file": "02_clean_inventory.csv",
+    "expected_file_risk": "None",
+    "bytes": 62,
+    "purpose": "clean CSV"
+  },
+  {
+    "file": "03_one_email.txt",
+    "expected_file_risk": "Low",
+    "bytes": 36,
+    "purpose": "single email"
+  },
+  {
+    "file": "04_many_emails.csv",
+    "expected_file_risk": "Low",
+    "bytes": 55,
+    "purpose": "two email occurrences"
+  },
+  {
+    "file": "05_repeated_email.txt",
+    "expected_file_risk": "Low",
+    "bytes": 52,
+    "purpose": "repeat count 2"
+  },
+  {
+    "file": "06_invalid_email.txt",
+    "expected_file_risk": "None",
+    "bytes": 58,
+    "purpose": "malformed emails"
+  },
+  {
+    "file": "07_one_mobile.txt",
+    "expected_file_risk": "Medium",
+    "bytes": 30,
+    "purpose": "UK mobile"
+  },
+  {
+    "file": "08_international_mobile.txt",
+    "expected_file_risk": "Medium",
+    "bytes": 33,
+    "purpose": "international UK mobile"
+  },
+  {
+    "file": "09_landline.txt",
+    "expected_file_risk": "Medium",
+    "bytes": 37,
+    "purpose": "UK geographic number"
+  },
+  {
+    "file": "10_invalid_phone.txt",
+    "expected_file_risk": "None",
+    "bytes": 31,
+    "purpose": "invalid phone"
+  },
+  {
+    "file": "11_email_and_phone.csv",
+    "expected_file_risk": "Medium",
+    "bytes": 43,
+    "purpose": "mixed low and medium"
+  },
+  {
+    "file": "12_nino_spaced.txt",
+    "expected_file_risk": "High",
+    "bytes": 36,
+    "purpose": "spaced NINO"
+  },
+  {
+    "file": "13_nino_compact.txt",
+    "expected_file_risk": "High",
+    "bytes": 32,
+    "purpose": "compact NINO"
+  },
+  {
+    "file": "14_nino_lowercase.txt",
+    "expected_file_risk": "High",
+    "bytes": 32,
+    "purpose": "case-insensitive NINO"
+  },
+  {
+    "file": "15_invalid_nino.txt",
+    "expected_file_risk": "None",
+    "bytes": 30,
+    "purpose": "disallowed prefix"
+  },
+  {
+    "file": "16_nino_and_email.csv",
+    "expected_file_risk": "High",
+    "bytes": 63,
+    "purpose": "high plus low"
+  },
+  {
+    "file": "17_valid_card_spaced.txt",
+    "expected_file_risk": "Critical",
+    "bytes": 44,
+    "purpose": "Luhn-valid card"
+  },
+  {
+    "file": "18_valid_card_hyphen.txt",
+    "expected_file_risk": "Critical",
+    "bytes": 44,
+    "purpose": "hyphenated card"
+  },
+  {
+    "file": "19_invalid_card_luhn.txt",
+    "expected_file_risk": "None",
+    "bytes": 45,
+    "purpose": "Luhn failure"
+  },
+  {
+    "file": "20_short_card.txt",
+    "expected_file_risk": "None",
+    "bytes": 25,
+    "purpose": "short card candidate"
+  },
+  {
+    "file": "21_card_and_nino.csv",
+    "expected_file_risk": "Critical",
+    "bytes": 40,
+    "purpose": "high plus critical"
+  },
+  {
+    "file": "22_all_four.csv",
+    "expected_file_risk": "Critical",
+    "bytes": 83,
+    "purpose": "all detectors"
+  },
+  {
+    "file": "23_repeated_cards.txt",
+    "expected_file_risk": "Critical",
+    "bytes": 56,
+    "purpose": "two non-overlapping occurrences"
+  },
+  {
+    "file": "24_case_and_spacing.txt",
+    "expected_file_risk": "High",
+    "bytes": 44,
+    "purpose": "case and whitespace"
+  },
+  {
+    "file": "25_multiline_records.csv",
+    "expected_file_risk": "Medium",
+    "bytes": 58,
+    "purpose": "quoted multiline CSV"
+  },
+  {
+    "file": "26_quoted_csv.csv",
+    "expected_file_risk": "Low",
+    "bytes": 68,
+    "purpose": "quoted CSV fields"
+  },
+  {
+    "file": "27_unicode_utf8.txt",
+    "expected_file_risk": "Low",
+    "bytes": 65,
+    "purpose": "valid UTF-8 Unicode"
+  },
+  {
+    "file": "28_empty.txt",
+    "expected_file_risk": "Reject",
+    "bytes": 0,
+    "purpose": "empty upload"
+  },
+  {
+    "file": "29_unsupported.json",
+    "expected_file_risk": "Reject",
+    "bytes": 29,
+    "purpose": "unsupported extension"
+  },
+  {
+    "file": "30_oversized.txt",
+    "expected_file_risk": "Reject",
+    "bytes": 1048623,
+    "purpose": "over 1 MiB"
+  }
+]
