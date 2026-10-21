@@ -1,10 +1,16 @@
-import { createServerClient, parseCookieHeader } from '@supabase/ssr';
+import { createServerClient, parseCookieHeader, type CookieOptions } from '@supabase/ssr';
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+
+export interface CookieToSet {
+  name: string;
+  value: string;
+  options: CookieOptions;
+}
 
 export type AuthResult =
   | { status: 'unconfigured' }
   | { status: 'unauthenticated' }
-  | { status: 'authenticated'; userId: string; client: SupabaseClient };
+  | { status: 'authenticated'; userId: string; client: SupabaseClient; cookiesToSet: CookieToSet[] };
 
 export function getSupabaseConfig(): { url: string; anonKey: string } | null {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -21,6 +27,7 @@ export async function authenticateRequest(request: Request): Promise<AuthResult>
   if (!config) return { status: 'unconfigured' };
 
   const bearer = /^Bearer\s+(\S+)$/i.exec(request.headers.get('authorization') ?? '')?.[1];
+  const cookiesToSet: CookieToSet[] = [];
   const client = bearer
     ? createClient(config.url, config.anonKey, {
         auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
@@ -30,8 +37,10 @@ export async function authenticateRequest(request: Request): Promise<AuthResult>
         cookies: {
           getAll: () =>
             parseCookieHeader(request.headers.get('cookie') ?? '').map(({ name, value }) => ({ name, value: value ?? '' })),
-          // Session refresh cookies are not written back from this API route.
-          setAll: () => {},
+          // Collected so the route can write refreshed session cookies onto its response.
+          setAll: (list) => {
+            cookiesToSet.push(...list);
+          },
         },
       });
 
@@ -39,7 +48,7 @@ export async function authenticateRequest(request: Request): Promise<AuthResult>
     // getUser() verifies the token with the Supabase Auth server rather than trusting the cookie/JWT locally.
     const { data, error } = bearer ? await client.auth.getUser(bearer) : await client.auth.getUser();
     if (error || !data.user) return { status: 'unauthenticated' };
-    return { status: 'authenticated', userId: data.user.id, client };
+    return { status: 'authenticated', userId: data.user.id, client, cookiesToSet };
   } catch {
     return { status: 'unauthenticated' };
   }
